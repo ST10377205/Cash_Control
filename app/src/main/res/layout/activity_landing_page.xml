@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#2E7D32"
+    android:padding="20dp"
+    tools:context=".landing_page">
+
+<!--landing page -->
+    <!--Name of the app text view-->
+    <TextView
+        android:id="@+id/TEXT1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cash Control"
+        android:textSize="45dp"
+        android:textColor="#ffff"
+        android:fontFamily="sans-serif-black"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:shadowColor="@color/black"
+        />
+    <!--image  logo inserted-->
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/piggybank_removebg_preview"
+        android:contentDescription="Logo"
+        android:layout_gravity="center"
+        android:scaleType="center"
+        android:layout_marginTop="10dp"
+        android:outlineAmbientShadowColor="@color/black"
+
+        />
+<!--login button using onClick ,-->
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get started"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:textColor="#2E7D32"
+        android:backgroundTint="#ffff"
+        android:layout_gravity="center"
+        android:shadowColor="@color/black"
+        android:layout_marginTop="16dp"
+        android:onClick="Get_started"
+
+
+        />
+
+
+</LinearLayout>

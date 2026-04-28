@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2E7D32"
+    tools:context=".SignUp">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:layout_margin="16dp">
+
+            <!-- TITLE -->
+            <TextView
+                android:id="@+id/sign_upView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Sign Up"
+                android:textColor="#2E7D32"
+                android:textSize="32sp"
+                android:textStyle="bold" />
+
+            <!-- ICON -->
+            <ImageView
+                android:contentDescription="sign_up"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/login_icon"
+                android:layout_gravity="center"
+                android:layout_marginTop="24dp" />
+
+            <!-- NAME LABEL -->
+            <TextView
+                android:id="@+id/Name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Full Name"
+                android:textStyle="bold"
+                android:layout_marginTop="32dp"
+                android:textSize="16sp"
+                android:textColor="#2E7D32" />
+
+            <EditText
+                android:id="@+id/name_input"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:hint="Enter your full name"
+                android:textStyle="bold"
+                android:padding="12dp"
+                android:textSize="16sp"
+                android:background="#F3F4F6"
+                android:layout_marginTop="8dp"
+                android:inputType="textPersonName"
+                android:textColor="@color/black" />
+
+            <!-- EMAIL LABEL -->
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email Address"
+                android:textStyle="bold"
+                android:layout_marginTop="24dp"
+                android:textSize="16sp"
+                android:textColor="#2E7D32" />
+
+            <EditText
+                android:id="@+id/name_email"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:hint="Enter your email"
+                android:textStyle="bold"
+                android:padding="12dp"
+                android:textSize="16sp"
+                android:background="#F3F4F6"
+                android:layout_marginTop="8dp"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/black" />
+
+            <!-- PASSWORD LABEL -->
+            <TextView
+                android:id="@+id/create_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Create Password"
+                android:textStyle="bold"
+                android:layout_marginTop="24dp"
+                android:textSize="16sp"
+                android:textColor="#2E7D32" />
+
+            <EditText
+                android:id="@+id/creat_password_input"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:hint="At least 6 characters"
+                android:textStyle="bold"
+                android:padding="12dp"
+                android:textSize="16sp"
+                android:background="#F3F4F6"
+                android:layout_marginTop="8dp"
+                android:inputType="textPassword"
+                android:textColor="@color/black" />
+
+            <!-- CONFIRM PASSWORD LABEL -->
+            <TextView
+                android:id="@+id/confirm_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Confirm Password"
+                android:textStyle="bold"
+                android:layout_marginTop="24dp"
+                android:textSize="16sp"
+                android:textColor="#2E7D32" />
+
+            <EditText
+                android:id="@+id/confirm_password_input"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:hint="Repeat your password"
+                android:textStyle="bold"
+                android:padding="12dp"
+                android:textSize="16sp"
+                android:background="#F3F4F6"
+                android:layout_marginTop="8dp"
+                android:inputType="textPassword"
+                android:textColor="@color/black" />
+
+            <!-- GENDER -->
+            <RadioGroup
+                android:id="@+id/radioGroupGender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="24dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioMale"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Male"
+                    android:textColor="#2E7D32" />
+
+                <RadioButton
+                    android:id="@+id/radioFemale"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:text="Female"
+                    android:textColor="#2E7D32" />
+            </RadioGroup>
+
+            <!-- SIGN UP BUTTON -->
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="Sign Up"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#2E7D32"
+                android:layout_marginTop="32dp"
+                android:onClick="signUpBtn" />
+
+            <!-- LOGIN LINK -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:id="@+id/already_have_account"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Already have an account? "
+                    android:textSize="14sp"
+                    android:textColor="#6B7280" />
+
+                <TextView
+                    android:id="@+id/log_in_TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Log In"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#2E7D32"
+                    android:clickable="true"
+                    android:focusable="true" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>
