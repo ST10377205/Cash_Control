@@ -1,75 +1,133 @@
-# Cash Control App – Feature Explanation
+#  Cash Control App
 
-## 1. User Authentication
+##  Overview
+The Cash Control App is an Android application designed to help users manage their personal finances effectively. It focuses on tracking expenses, setting budgets, analysing spending patterns, and maintaining financial discipline through a secure and user-friendly system.
+
+##  Features
+
+###  User Authentication
 The application ensures that financial data is kept private and secure through a dedicated login and registration system.
 
 **How it works:**
-- Users can create an account with a name, email, and password.
-- Secure login using a local Room database to verify credentials.
+- Users can create an account with a name, email, and password  
+- Secure login using a local Room database to verify credentials  
 
-## 2. Add Monthly Goals (Budget)
+**Purpose:**
+- Protects sensitive financial data  
+- Ensures only authorised users can access the application  
+
+
+###  Add Monthly Goals (Budget)
 This feature allows users to define their financial limits by setting specific spending goals.
 
 **How it works:**
-- Users set both a **Minimum** and **Maximum** monthly goal.
-- Saving a budget adds to the user's total income pool.
-- Triggers a "Budget Planner" achievement.
+- Users set both a minimum and maximum monthly goal  
+- Saving a budget adds to the user's total income pool  
+- Triggers a "Budget Planner" achievement  
 
 **Purpose:**
-- Helps users plan their financial future.
-- Acts as a cumulative financial limit.
+- Helps users plan their financial future  
+- Acts as a cumulative financial limit  
 
-## 3. Create Categories
-Users can organize their spending by creating specific categories.
 
-**How it works:**
-- Users name a category and allocate a specific portion of their budget to it.
-- Categories are stored locally and available for selection when adding expenses.
-
-## 4. Detailed Expense Logging
-Record every transaction with high precision to maintain an accurate financial history.
+### Create Categories
+Users can organise their spending by creating specific categories.
 
 **How it works:**
-- Users enter the expense amount and select a category.
-- **Mandatory Details**: Users specify the **Date**, **Start Time**, **End Time**, and a **Description**.
-- **Photo Attachment**: Users can optionally take a photo of the receipt using the camera.
+- Users name a category and allocate a specific portion of their budget to it  
+- Categories are stored locally and available when adding expenses  
 
-## 5. Strict Budget Control
+**Purpose:**
+- Improves organisation of expenses  
+- Makes tracking spending easier  
+
+
+###  Detailed Expense Logging
+This feature allows users to record every transaction with high accuracy.
+
+**How it works:**
+- Users enter the expense amount and select a category  
+- Mandatory details include date, start time, end time, and description  
+- Users can optionally take a photo of the receipt using the camera  
+
+**Purpose:**
+- Maintains a detailed financial history  
+- Provides proof of transactions  
+
+
+
+###  Strict Budget Control
 The application helps prevent overspending by monitoring category balances.
 
 **How it works:**
-- Before an expense is added, the app checks the category's remaining balance.
-- If the expense exceeds the balance, the transaction is blocked with an "Insufficient funds" warning.
-
-## 6. Filtered Expense History
-View and review all past transactions within specific timeframes.
-
-**How it works:**
-- Use interactive **Date Pickers** to select a start and end date.
-- The list automatically refreshes to show all transactions, descriptions, and captured receipt photos for that period.
-
-## 7. Visual Statistics (Category Graphs)
-Analyze spending patterns through visual data representation.
-
-**How it works:**
-- The app calculates the total spent per category within a selected period.
-- Displays a **Horizontal Bar Graph** for each category, scaling bars relative to the highest spending area.
-
-## 8. Achievement & Streak System
-Gamified rewards to encourage consistent financial tracking.
-
-**How it works:**
-- **Saving Streaks**: Tracks how many consecutive days you've logged expenses.
-- **Trophy Collection**: Earn **Milestone Trophies** for every 3 days of tracking and **Budget Planner** trophies for goal setting.
-- **Badges**: Unlock badges like "3-Day Saver", "Weekly Warrior", and "Saving Legend".
-
-## 9. Data Storage
-Ensures that all financial data is saved locally and remains persistent.
-
-**How it works:**
-- Uses **Room Database (SQLite)** for permanent storage of users and transactions.
-- Uses **SharedPreferences** for user-specific settings.
+- Before adding an expense, the app checks the category’s remaining balance  
+- If the expense exceeds the balance, the transaction is blocked  
+- An "Insufficient funds" warning is displayed  
 
 **Purpose:**
-- Ensures data is not lost when the app is closed.
-- Operates entirely offline for maximum privacy.
+- Encourages responsible spending  
+- Prevents exceeding budget limits  
+
+
+
+### Filtered Expense History
+Users can view and review all past transactions within selected timeframes.
+
+**How it works:**
+- Users select a start date and end date  
+- The app displays all transactions within that period  
+- Includes descriptions and receipt photos  
+
+**Purpose:**
+- Makes it easy to review financial activity  
+- Supports better financial planning  
+
+
+
+### Visual Statistics (Category Graphs)
+This feature helps users analyse spending patterns visually.
+
+**How it works:**
+- The app calculates total spending per category within a selected period  
+- Displays a horizontal bar graph for each category  
+- Bars are scaled relative to the highest spending category  
+
+**Purpose:**
+- Helps users understand spending behaviour  
+- Identifies high spending areas quickly  
+
+
+
+### Achievement & Streak System
+A gamified system designed to encourage consistent financial tracking.
+
+**How it works:**
+- Tracks consecutive days of expense logging (saving streaks)  
+- Awards milestone trophies every 3 days  
+- Unlocks badges such as "3-Day Saver", "Weekly Warrior", and "Saving Legend"  
+
+**Purpose:**
+- Motivates users to stay consistent  
+- Makes financial tracking more engaging  
+
+
+
+### Data Storage
+Ensures that all financial data is saved locally and remains available.
+
+**How it works:**
+- Uses Room Database (SQLite) to store users and transactions  
+- Uses SharedPreferences for user-specific settings  
+
+**Purpose:**
+- Prevents data loss when the app is closed  
+- Allows the app to function fully offline for privacy  
+
+**Youtube link** 
+
+https://youtube.com/shorts/jfZoZaFOSY4?si=o0SZagvc8S7VC3fT
+
+
+**Github link**
+
+
