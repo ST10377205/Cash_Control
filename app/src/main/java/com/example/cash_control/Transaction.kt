@@ -11,5 +11,8 @@ data class Transaction(
     val category: String,
     val amount: Double,
     val date: String,
-    val imageUri: String? = null // Store the URI or file path of the image
+    val startTime: String? = null,
+    val endTime: String? = null,
+    val description: String? = null,
+    val imageUri: String? = null // Store the Base64 string of the image
 )

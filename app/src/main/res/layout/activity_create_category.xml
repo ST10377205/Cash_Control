@@ -1,10 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#2E7D32"
     tools:context=".create_category">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:layout_above="@+id/navBar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:layout_margin="16dp">
+
+            <!-- TITLE -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Create Category"
+                android:textColor="#2E7D32"
+                android:textSize="28sp"
+                android:textStyle="bold"/>
+
+            <!-- CATEGORY NAME LABEL -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Category Name"
+                android:textStyle="bold"
+                android:layout_marginTop="32dp"
+                android:textSize="16sp"
+                android:textColor="#2E7D32" />
+
+            <EditText
+                android:id="@+id/inputCategory"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="8dp"
+                android:hint="e.g. Groceries, Rent"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:padding="12dp"
+                android:background="#F3F4F6"
+                android:inputType="text"
+                android:textColor="@color/black"/>
+
+            <!-- CATEGORY AMOUNT LABEL -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Allocated Amount"
+                android:textStyle="bold"
+                android:layout_marginTop="24dp"
+                android:textSize="16sp"
+                android:textColor="#2E7D32" />
+
+            <EditText
+                android:id="@+id/input_Amount_Category"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="8dp"
+                android:hint="R 0.00"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:padding="12dp"
+                android:background="#F3F4F6"
+                android:inputType="numberDecimal"
+                android:textColor="@color/black"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:minHeight="40dp"/>
+
+            <!-- SAVE BUTTON -->
+            <Button
+                android:id="@+id/saveCategory"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="Save Category"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:backgroundTint="#2E7D32"
+                android:onClick="saveCategory"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- VIEW ALL CATEGORIES BUTTON -->
+            <Button
+                android:id="@+id/btnViewCategories"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="View All Categories"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:backgroundTint="#6B7280"
+                android:onClick="viewCategories"
+                android:layout_marginBottom="16dp"/>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- FIXED NAVBAR AT BOTTOM -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/navBar"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="16dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_home"
+                android:onClick="openHome"
+                app:tint="#2E7D32" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_history"
+                android:onClick="openHistory"
+                app:tint="#777777" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_stats"
+                android:onClick="openStats"
+                app:tint="#777777" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_profile"
+                android:onClick="openProfile"
+                app:tint="#777777" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

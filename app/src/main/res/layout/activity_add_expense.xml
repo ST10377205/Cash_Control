@@ -1,10 +1,275 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E70A0A"
     tools:context=".Add_expense">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/navBar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:layout_margin="16dp">
+
+            <!-- TITLE -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Add Expense"
+                android:textColor="#E70A0A"
+                android:textSize="28sp"
+                android:textStyle="bold"/>
+
+            <!-- CATEGORY LABEL -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Category"
+                android:textStyle="bold"
+                android:layout_marginTop="24dp"
+                android:textSize="14sp"
+                android:textColor="#E70A0A" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                app:boxBackgroundColor="#F3F4F6">
+
+                <AutoCompleteTextView
+                    android:id="@+id/categoryDropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Select category"
+                    android:inputType="none"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- AMOUNT -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Amount"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"
+                android:textSize="14sp"
+                android:textColor="#E70A0A" />
+
+            <EditText
+                android:id="@+id/expense_input_Amount_Category"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="4dp"
+                android:hint="R 0.00"
+                android:padding="12dp"
+                android:background="#F3F4F6"
+                android:inputType="numberDecimal"
+                android:textColor="@color/black"/>
+
+            <!-- DATE -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date (YYYY-MM-DD)"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"
+                android:textSize="14sp"
+                android:textColor="#E70A0A" />
+
+            <EditText
+                android:id="@+id/inputDate"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="4dp"
+                android:hint="2023-10-27"
+                android:padding="12dp"
+                android:background="#F3F4F6"
+                android:inputType="date"
+                android:textColor="@color/black"/>
+
+            <!-- TIMES -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginEnd="8dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Start Time"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:textColor="#E70A0A" />
+                    <EditText
+                        android:id="@+id/inputStartTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="4dp"
+                        android:hint="09:00"
+                        android:padding="12dp"
+                        android:background="#F3F4F6"
+                        android:inputType="time"
+                        android:textColor="@color/black"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="End Time"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:textColor="#E70A0A" />
+                    <EditText
+                        android:id="@+id/inputEndTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="4dp"
+                        android:hint="10:00"
+                        android:padding="12dp"
+                        android:background="#F3F4F6"
+                        android:inputType="time"
+                        android:textColor="@color/black"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- DESCRIPTION -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"
+                android:textSize="14sp"
+                android:textColor="#E70A0A" />
+
+            <EditText
+                android:id="@+id/inputDescription"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginTop="4dp"
+                android:hint="What did you buy?"
+                android:padding="12dp"
+                android:gravity="top"
+                android:background="#F3F4F6"
+                android:inputType="textMultiLine"
+                android:textColor="@color/black"/>
+
+            <!-- PHOTO -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Attach Receipt (Optional)"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"
+                android:textSize="14sp"
+                android:textColor="#E70A0A" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginTop="8dp"
+                app:cardCornerRadius="12dp"
+                app:cardBackgroundColor="#F3F4F6">
+
+                <ImageView
+                    android:id="@+id/imgReceipt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_camera"
+                    android:onClick="openCamera"
+                    app:tint="#E70A0A"/>
+            </androidx.cardview.widget.CardView>
+
+            <!-- ADD EXPENSE BUTTON -->
+            <Button
+                android:id="@+id/btnAddExpense"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="24dp"
+                android:text="Add Expense"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:backgroundTint="#E70A0A"
+                android:onClick="addExpense"
+                android:layout_marginBottom="16dp"/>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- FIXED NAVBAR AT BOTTOM -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/navBar"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="16dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_home"
+                android:onClick="openHome"
+                app:tint="#2E7D32" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_history"
+                android:onClick="openHistory"
+                app:tint="#777777" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_stats"
+                android:onClick="openStats"
+                app:tint="#777777" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_profile"
+                android:onClick="openProfile"
+                app:tint="#777777" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

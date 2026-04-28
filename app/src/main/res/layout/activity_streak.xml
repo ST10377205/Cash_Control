@@ -1,10 +1,290 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".streak">
+    android:background="#2E7D32"
+    tools:context=".Streak">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/navBar"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:layout_margin="16dp">
+
+            <!-- TITLE -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Your Achievements"
+                android:textColor="#2E7D32"
+                android:textSize="28sp"
+                android:textStyle="bold"/>
+
+            <!-- MAIN STREAK CARD -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:layout_marginTop="32dp"
+                app:cardBackgroundColor="#F9FAFB"
+                app:cardCornerRadius="32dp"
+                app:cardElevation="4dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/trophyBig"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentTop="true"
+                        android:src="@drawable/piggybank_removebg_preview"
+                        android:visibility="gone"
+                        tools:visibility="visible"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:src="@drawable/streak_24"
+                            app:tint="#2E7D32"/>
+
+                        <TextView
+                            android:id="@+id/streakCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0 Days"
+                            android:textSize="36sp"
+                            android:textStyle="bold"
+                            android:textColor="#2E7D32"
+                            android:layout_marginTop="8dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Current Saving Streak"
+                            android:textSize="14sp"
+                            android:textColor="#6B7280"/>
+                    </LinearLayout>
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- ACHIEVEMENTS SECTION -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Badges"
+                android:textColor="#2E7D32"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:columnCount="2"
+                android:alignmentMode="alignMargins">
+
+                <!-- 3 Day Badge -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_columnWeight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp"
+                    android:gravity="center">
+                    <ImageView
+                        android:id="@+id/badge3Day"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/wallet_24"
+                        android:alpha="0.2"
+                        app:tint="#FFD700"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="3 Day Saver"
+                        android:textSize="12sp"
+                        android:textColor="#6B7280"/>
+                </LinearLayout>
+
+                <!-- Budget Badge -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_columnWeight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp"
+                    android:gravity="center">
+                    <ImageView
+                        android:id="@+id/badgeBudget"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/ic_stats"
+                        android:alpha="0.2"
+                        app:tint="#FFD700"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Goal Setter"
+                        android:textSize="12sp"
+                        android:textColor="#6B7280"/>
+                </LinearLayout>
+
+                <!-- 7 Day Badge -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_columnWeight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp"
+                    android:gravity="center">
+                    <ImageView
+                        android:id="@+id/badge7Day"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/streak_24"
+                        android:alpha="0.2"
+                        app:tint="#FFD700"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Weekly Warrior"
+                        android:textSize="12sp"
+                        android:textColor="#6B7280"/>
+                </LinearLayout>
+
+                <!-- 30 Day Trophy -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_columnWeight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp"
+                    android:gravity="center">
+                    <ImageView
+                        android:id="@+id/trophy30Day"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/piggybank_removebg_preview"
+                        android:alpha="0.2" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Saving Legend"
+                        android:textSize="12sp"
+                        android:textColor="#6B7280"/>
+                </LinearLayout>
+
+            </GridLayout>
+
+            <!-- TROPHY COLLECTION LIST -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Trophy Collection"
+                android:textColor="#2E7D32"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <LinearLayout
+                android:id="@+id/trophyListContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="12dp">
+                <!-- Trophy items will be added here -->
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/streakMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Start saving daily to unlock badges!"
+                android:textAlignment="center"
+                android:textColor="#6B7280"
+                android:textSize="16sp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="80dp" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- NAVBAR -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/navBar"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="16dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_home"
+                android:onClick="openHome"
+                app:tint="#777777" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_history"
+                android:onClick="openHistory"
+                app:tint="#777777" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_stats"
+                android:onClick="openStats"
+                app:tint="#777777" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_profile"
+                android:onClick="openProfile"
+                app:tint="#2E7D32" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
