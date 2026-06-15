@@ -283,8 +283,8 @@ Log financial activities daily to unlock achievements such as the **Saving Legen
 
 The following documents are included as part of this project:
 
-* **Research Document** *(Insert File Link)*
-* **Design Document** *(Insert File Link)*
+* **Research Document** https://github.com/ST10377205/Cash_Control/blob/master/Research%20OPSC6311.pdf 
+* **Design Document**   https://github.com/ST10377205/Cash_Control/blob/master/Designe%2CPlanning%20part1%20OPSC6311.pdf 
 
 ---
 
