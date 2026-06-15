@@ -17,66 +17,188 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            android:orientation="vertical"
-            android:padding="24dp"
-            android:layout_margin="16dp">
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="6dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
 
             <!-- TITLE -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:text="User Profile"
-                android:textColor="#2E7D32"
-                android:textSize="28sp"
+                android:textColor="#111827"
+                android:textSize="18sp"
                 android:textStyle="bold"/>
 
-            <!-- PROFILE PIC -->
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+            <!-- AVATAR - clickable to change photo -->
+            <FrameLayout
+                android:layout_width="96dp"
+                android:layout_height="96dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="32dp"
-                android:src="@drawable/login_icon" />
+                android:layout_marginTop="24dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="changeProfilePhoto"
+                android:foreground="?attr/selectableItemBackground">
 
-            <!-- USER INFO -->
+                <LinearLayout
+                    android:id="@+id/avatarInitialBg"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:gravity="center"
+                    android:background="@drawable/avatar_big_bg"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/profileInitial"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="U"
+                        android:textColor="#FFFFFF"
+                        android:textSize="36sp"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/profileImage"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/avatar_big_bg"
+                    android:clipToOutline="true"
+                    android:visibility="gone"/>
+
+                <LinearLayout
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:gravity="bottom|center"
+                    android:background="#80000000"
+                    android:paddingBottom="4dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="\uD83D\uDCF7"
+                        android:textSize="14sp"/>
+                </LinearLayout>
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/profilePhotoHint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="6dp"
+                android:text="Tap to add profile photo"
+                android:textColor="#9CA3AF"
+                android:textSize="11sp"/>
+
+            <!-- NAME -->
             <TextView
                 android:id="@+id/profileName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="16dp"
-                android:text="John Doe"
+                android:layout_marginTop="12dp"
+                android:text="User"
                 android:textColor="#111827"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
+            <!-- EMAIL -->
             <TextView
                 android:id="@+id/profileEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="john.doe@example.com"
+                android:text=""
                 android:textColor="#6B7280"
                 android:textSize="14sp" />
 
+            <!-- GENDER -->
+            <TextView
+                android:id="@+id/profileGender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text=""
+                android:textColor="#9CA3AF"
+                android:textSize="12sp"
+                android:layout_marginTop="2dp" />
+
             <View
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
+                android:layout_height="1dp"
+                android:background="#E5E7EB"
+                android:layout_marginVertical="20dp" />
 
-            <!-- LOGOUT BUTTON -->
-            <Button
-                android:id="@+id/btnLogout"
+            <LinearLayout
+                android:id="@+id/profileMemberSinceRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="#F9FAFB"
+                android:padding="12dp">
+
+                <TextView
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:text="Joined"
+                    android:textColor="#6B7280"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:id="@+id/profileMemberSince"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="#111827"
+                    android:textSize="13sp"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E5E7EB"
+                android:layout_marginVertical="20dp" />
+
+            <!-- LOGOUT -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:text="Log Out"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:backgroundTint="#E70A0A"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
                 android:onClick="logout"
-                android:layout_marginBottom="16dp"/>
+                android:foreground="?attr/selectableItemBackground"
+                android:background="#FEF2F2">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Log Out"
+                    android:textColor="#EF4444"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
@@ -85,51 +207,117 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/navBar"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="74dp"
         android:layout_alignParentBottom="true"
         android:layout_marginHorizontal="16dp"
         android:layout_marginBottom="16dp"
         app:cardBackgroundColor="#FFFFFF"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="12dp">
+        app:cardCornerRadius="24dp"
+        app:cardElevation="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
 
-            <ImageView
+            <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="32dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:src="@drawable/ic_home"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
                 android:onClick="openHome"
-                app:tint="#777777" />
+                android:orientation="vertical">
 
-            <ImageView
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_home"
+                    app:tint="#777777" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Home"
+                    android:textColor="#777777"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="32dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:src="@drawable/ic_history"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
                 android:onClick="openHistory"
-                app:tint="#777777" />
+                android:orientation="vertical">
 
-            <ImageView
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_history"
+                    app:tint="#777777" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="History"
+                    android:textColor="#777777"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="32dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:src="@drawable/ic_stats"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
                 android:onClick="openStats"
-                app:tint="#777777" />
+                android:orientation="vertical">
 
-            <ImageView
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_stats"
+                    app:tint="#777777" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Stats"
+                    android:textColor="#777777"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="32dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:src="@drawable/ic_profile"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
                 android:onClick="openProfile"
-                app:tint="#2E7D32" />
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_profile"
+                    app:tint="#2E7D32" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Profile"
+                    android:textColor="#2E7D32"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

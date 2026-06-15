@@ -2,6 +2,8 @@ package com.example.cash_control
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.util.Patterns
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
@@ -9,16 +11,29 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import androidx.lifecycle.lifecycleScope
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.tasks.await
 
+/**
+ * Forgot_password Activity handles the email verification for password recovery.
+ * It checks Firestore to see if the email exists, then navigates to Reset_password.
+ */
 class Forgot_password : AppCompatActivity() {
+    
+    private lateinit var auth: FirebaseAuth
+    private lateinit var db: FirebaseFirestore
+    private val TAG = "CASH_CONTROL_FORGOT"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_forgot_password)
+
+        auth = FirebaseAuth.getInstance()
+        db = FirebaseFirestore.getInstance()
 
         val mainLayout = findViewById<View>(R.id.main)
         if (mainLayout != null) {
@@ -30,31 +45,49 @@ class Forgot_password : AppCompatActivity() {
         }
     }
 
+    /**
+     * Checks if the email exists in Firestore and navigates to the reset page.
+     */
     fun verifyEmail(@Suppress("UNUSED_PARAMETER") view: View) {
-        val emailInput = findViewById<EditText>(R.id.email_reset).text.toString().trim()
+        val emailEdit = findViewById<EditText>(R.id.email_reset)
+        val emailInput = emailEdit.text.toString().trim().lowercase()
+
+        emailEdit.error = null
 
         if (emailInput.isEmpty()) {
-            Toast.makeText(this, "Enter email", Toast.LENGTH_SHORT).show()
+            emailEdit.error = "Email is required"
+            emailEdit.requestFocus()
             return
         }
 
-        val db = DatabaseProvider.getDatabase(this)
+        if (!Patterns.EMAIL_ADDRESS.matcher(emailInput).matches() || !emailInput.endsWith("@gmail.com")) {
+            emailEdit.error = "Please enter a valid @gmail.com address"
+            emailEdit.requestFocus()
+            return
+        }
 
-        CoroutineScope(Dispatchers.IO).launch {
-            // 🔍 Check Room Database for the email
-            val user = db.userDao().findUserByEmail(emailInput)
+        lifecycleScope.launch {
+            try {
+                // Check if the user exists in Firestore "users" collection
+                val userQuery = db.collection("users")
+                    .whereEqualTo("email", emailInput)
+                    .get()
+                    .await()
 
-            withContext(Dispatchers.Main) {
-                if (user != null) {
-                    // ✅ Found: Navigate to Reset
+                if (!userQuery.isEmpty) {
+                    // User found! Navigate to Reset_password page
+                    Toast.makeText(this@Forgot_password, "Email verified!", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this@Forgot_password, Reset_password::class.java)
                     intent.putExtra("email", emailInput)
                     startActivity(intent)
                     finish()
                 } else {
-                    // ❌ Not Found
-                    Toast.makeText(this@Forgot_password, "Email not found in our records", Toast.LENGTH_SHORT).show()
+                    // User not found in Firestore
+                    Toast.makeText(this@Forgot_password, "No account found with this email", Toast.LENGTH_LONG).show()
                 }
+            } catch (e: Exception) {
+                Log.e(TAG, "Database check failed: ${e.message}")
+                Toast.makeText(this@Forgot_password, "Error checking account: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }
     }

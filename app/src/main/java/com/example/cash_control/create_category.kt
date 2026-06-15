@@ -2,6 +2,7 @@ package com.example.cash_control
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
@@ -10,10 +11,20 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import org.json.JSONArray
 import org.json.JSONObject
 
+/**
+ * CreateCategory Activity handles custom category creation and syncs them to Firestore.
+ */
 class CreateCategory : AppCompatActivity() {
+
+    private val TAG = "CASH_CONTROL_CAT"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,8 +95,24 @@ class CreateCategory : AppCompatActivity() {
 
         jsonArray.put(newCategory)
 
+        // 1. SAVE LOCALLY
         userSharedPref.edit {
             putString("categories", jsonArray.toString())
+        }
+
+        // 2. SAVE TO FIRESTORE
+        val firebaseUser = FirebaseAuth.getInstance().currentUser
+        if (firebaseUser != null) {
+            lifecycleScope.launch {
+                try {
+                    FirebaseFirestore.getInstance().collection("users")
+                        .document(firebaseUser.uid)
+                        .update("categories", jsonArray.toString())
+                        .await()
+                } catch (e: Exception) {
+                    Log.e(TAG, "Failed to sync categories: ${e.message}")
+                }
+            }
         }
 
         Toast.makeText(this, "Category Saved Successfully", Toast.LENGTH_SHORT).show()

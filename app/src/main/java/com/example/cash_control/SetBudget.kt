@@ -2,6 +2,7 @@ package com.example.cash_control
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
@@ -10,8 +11,18 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
+/**
+ * SetBudget Activity allows users to define financial goals and syncs them to Firebase.
+ */
 class SetBudget : AppCompatActivity() {
+
+    private val TAG = "CASH_CONTROL_BUDGET"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,12 +91,34 @@ class SetBudget : AppCompatActivity() {
         val currentBudgetTrophies = userSharedPref.getInt("budget_trophy_count", 0)
         val newBudgetTrophies = currentBudgetTrophies + 1
 
+        // 1. SAVE LOCALLY
         userSharedPref.edit()
             .putFloat("min_goal", minGoal)
             .putFloat("max_goal", maxGoal)
             .putFloat("income", updatedIncome)
             .putInt("budget_trophy_count", newBudgetTrophies)
             .apply()
+
+        // 2. SAVE TO FIRESTORE
+        val firebaseUser = FirebaseAuth.getInstance().currentUser
+        if (firebaseUser != null) {
+            lifecycleScope.launch {
+                try {
+                    val budgetData = hashMapOf(
+                        "min_goal" to minGoal,
+                        "max_goal" to maxGoal,
+                        "income" to updatedIncome,
+                        "budget_trophy_count" to newBudgetTrophies
+                    )
+                    FirebaseFirestore.getInstance().collection("users")
+                        .document(firebaseUser.uid)
+                        .update(budgetData as Map<String, Any>)
+                        .await()
+                } catch (e: Exception) {
+                    Log.e(TAG, "Failed to sync budget to Firestore: ${e.message}")
+                }
+            }
+        }
 
         findViewById<TextView>(R.id.txtGoalRange)?.text = "Goal Range: R %.2f - R %.2f".format(minGoal, maxGoal)
         

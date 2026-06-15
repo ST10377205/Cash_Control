@@ -14,5 +14,6 @@ data class Transaction(
     val startTime: String? = null,
     val endTime: String? = null,
     val description: String? = null,
-    val imageUri: String? = null // Store the Base64 string of the image
+    val imageUri: String? = null,
+    val type: String = "expense"
 )

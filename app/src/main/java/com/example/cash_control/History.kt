@@ -15,7 +15,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import kotlinx.coroutines.CoroutineScope
+import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -62,7 +62,6 @@ class History : AppCompatActivity() {
                 val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                 editText.setText(sdf.format(cal.time))
                 
-                // Auto-filter when both dates are selected
                 val start = inputStartDate.text.toString()
                 val end = inputEndDate.text.toString()
                 if (start.isNotEmpty() && end.isNotEmpty()) {
@@ -82,7 +81,7 @@ class History : AppCompatActivity() {
         if (currentUserEmail != null) {
             val db = DatabaseProvider.getDatabase(this)
 
-            CoroutineScope(Dispatchers.IO).launch {
+            lifecycleScope.launch(Dispatchers.IO) {
                 val transactions = if (startDate != null && endDate != null) {
                     db.transactionDao().getTransactionsInRange(currentUserEmail, startDate, endDate)
                 } else {
@@ -100,20 +99,43 @@ class History : AppCompatActivity() {
                             val transactionView = layoutInflater.inflate(R.layout.item_transaction, null)
                             
                             val textTitle = transactionView.findViewById<TextView>(R.id.txtTransTitle)
+                            val textAmount = transactionView.findViewById<TextView>(R.id.txtTransAmount)
                             val textDate = transactionView.findViewById<TextView>(R.id.txtTransDate)
                             val textDesc = transactionView.findViewById<TextView>(R.id.txtTransDesc)
                             val imgReceipt = transactionView.findViewById<ImageView>(R.id.imgTransReceipt)
+                            val iconBg = transactionView.findViewById<View>(R.id.imgTransIconBg)
+                            val icon = transactionView.findViewById<ImageView>(R.id.imgTransIcon)
 
-                            textTitle.text = "${transaction.category} - R %.2f".format(transaction.amount)
+                            textTitle.text = transaction.category
+                            
+                            if (transaction.type == "income") {
+                                textAmount.text = "+ R %.2f".format(transaction.amount)
+                                textAmount.setTextColor(android.graphics.Color.parseColor("#22C55E"))
+                                iconBg?.setBackgroundResource(R.drawable.bg_icon_budget)
+                                icon?.setImageResource(R.drawable.wallet_24)
+                                icon?.setColorFilter(android.graphics.Color.parseColor("#16A34A"))
+                            } else {
+                                textAmount.text = "- R %.2f".format(transaction.amount)
+                                textAmount.setTextColor(android.graphics.Color.parseColor("#DC2626"))
+                                iconBg?.setBackgroundResource(R.drawable.bg_icon_expense)
+                                icon?.setImageResource(R.drawable.exchange_24)
+                                icon?.setColorFilter(android.graphics.Color.parseColor("#DC2626"))
+                            }
+
                             textDate.text = "${transaction.date} (${transaction.startTime} - ${transaction.endTime})"
                             textDesc.text = transaction.description ?: ""
 
-                            if (transaction.imageUri != null) {
+                            // Robust image loading check
+                            if (!transaction.imageUri.isNullOrEmpty()) {
                                 try {
                                     val imageBytes = Base64.decode(transaction.imageUri, Base64.DEFAULT)
                                     val decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
-                                    imgReceipt.setImageBitmap(decodedImage)
-                                    imgReceipt.visibility = View.VISIBLE
+                                    if (decodedImage != null) {
+                                        imgReceipt.setImageBitmap(decodedImage)
+                                        imgReceipt.visibility = View.VISIBLE
+                                    } else {
+                                        imgReceipt.visibility = View.GONE
+                                    }
                                 } catch (e: Exception) {
                                     imgReceipt.visibility = View.GONE
                                 }

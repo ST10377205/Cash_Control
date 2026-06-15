@@ -3,50 +3,93 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="2dp"
-    app:cardBackgroundColor="#F9FAFB"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="3dp"
+    app:cardBackgroundColor="#FFFFFF"
     android:layout_marginBottom="12dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="12dp">
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/txtTransTitle"
-            android:layout_width="wrap_content"
+        <!-- ICON CONTAINER -->
+        <LinearLayout
+            android:id="@+id/imgTransIconBg"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_icon_expense"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/imgTransIcon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/exchange_24"
+                app:tint="#DC2626" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Category - R 0.00"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:orientation="vertical"
+            android:layout_marginStart="12dp">
 
-        <TextView
-            android:id="@+id/txtTransDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Date &amp; Time"
-            android:textColor="#6B7280"
-            android:textSize="14sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/txtTransDesc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Description"
-            android:textColor="#374151"
-            android:textSize="14sp"
-            android:layout_marginTop="4dp"/>
+                <TextView
+                    android:id="@+id/txtTransTitle"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Category"
+                    android:textColor="#111827"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/imgTransReceipt"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="12dp"
-            android:scaleType="centerCrop"
-            android:visibility="gone" />
+                <TextView
+                    android:id="@+id/txtTransAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="R 0.00"
+                    android:textColor="#111827"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtTransDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Date &amp; Time"
+                android:textColor="#4B5563"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/txtTransDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description"
+                android:textColor="#374151"
+                android:textSize="13sp"
+                android:layout_marginTop="4dp"/>
+
+            <ImageView
+                android:id="@+id/imgTransReceipt"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="12dp"
+                android:scaleType="centerCrop"
+                android:visibility="gone" />
+        </LinearLayout>
 
     </LinearLayout>
 

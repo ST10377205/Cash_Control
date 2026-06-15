@@ -10,50 +10,48 @@
     android:padding="20dp"
     tools:context=".landing_page">
 
-<!--landing page -->
-    <!--Name of the app text view-->
+    <!-- APP NAME -->
     <TextView
         android:id="@+id/TEXT1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cash Control"
         android:textSize="45dp"
-        android:textColor="#ffff"
+        android:textColor="#FFFFFF"
         android:fontFamily="sans-serif-black"
         android:textStyle="bold"
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
-        android:shadowColor="@color/black"
-        />
-    <!--image  logo inserted-->
+        android:shadowColor="@color/black" />
+
+    <!-- REBRANDED LOGO (Matching Icon) -->
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/piggybank_removebg_preview"
-        android:contentDescription="Logo"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
+        android:src="@drawable/app_icon2"
+        android:contentDescription="Cash Control Logo"
         android:layout_gravity="center"
-        android:scaleType="center"
-        android:layout_marginTop="10dp"
-        android:outlineAmbientShadowColor="@color/black"
+        android:scaleType="fitCenter"
+        android:layout_marginTop="32dp" />
 
-        />
-<!--login button using onClick ,-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <!-- GET STARTED BUTTON -->
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:text="Get started"
-        android:textSize="25dp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="#2E7D32"
-        android:backgroundTint="#ffff"
+        android:backgroundTint="#FFFFFF"
         android:layout_gravity="center"
-        android:shadowColor="@color/black"
-        android:layout_marginTop="16dp"
-        android:onClick="Get_started"
-
-
-        />
-
+        android:layout_marginBottom="32dp"
+        android:paddingHorizontal="40dp"
+        android:onClick="Get_started" />
 
 </LinearLayout>

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "373454083324",
+    "project_id": "cash-control-27a5e",
+    "storage_bucket": "cash-control-27a5e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:373454083324:android:416d9734e6df5cd088f379",
+        "android_client_info": {
+          "package_name": "com.example.cash_control"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDk0j4GLXEMWgLBSkMEbFE_j6j_etKZSII"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

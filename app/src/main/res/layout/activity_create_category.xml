@@ -8,28 +8,68 @@
     android:background="#2E7D32"
     tools:context=".create_category">
 
+    <!-- HEADER WITH BACK BUTTON -->
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical">
+
+        <ImageButton
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_home"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:tint="#FFFFFF"
+            android:onClick="openHome"
+            android:contentDescription="Back to Home" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Category Management"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginStart="8dp"/>
+    </LinearLayout>
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
+        android:layout_below="@id/header"
         android:layout_above="@+id/navBar">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            android:orientation="vertical"
-            android:padding="24dp"
-            android:layout_margin="16dp">
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="12dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="6dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
             <!-- TITLE -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:text="Create Category"
-                android:textColor="#2E7D32"
-                android:textSize="28sp"
+                android:textColor="#111827"
+                android:textSize="18sp"
                 android:textStyle="bold"/>
 
             <!-- CATEGORY NAME LABEL -->
@@ -38,9 +78,9 @@
                 android:layout_height="wrap_content"
                 android:text="Category Name"
                 android:textStyle="bold"
-                android:layout_marginTop="32dp"
-                android:textSize="16sp"
-                android:textColor="#2E7D32" />
+                android:layout_marginTop="16dp"
+                android:textSize="14sp"
+                android:textColor="#374151" />
 
             <EditText
                 android:id="@+id/inputCategory"
@@ -48,12 +88,13 @@
                 android:layout_height="56dp"
                 android:layout_marginTop="8dp"
                 android:hint="e.g. Groceries, Rent"
+                android:textColorHint="#808080"
+                android:textColor="@color/black"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:padding="12dp"
                 android:background="#F3F4F6"
-                android:inputType="text"
-                android:textColor="@color/black"/>
+                android:inputType="text" />
 
             <!-- CATEGORY AMOUNT LABEL -->
             <TextView
@@ -61,9 +102,9 @@
                 android:layout_height="wrap_content"
                 android:text="Allocated Amount"
                 android:textStyle="bold"
-                android:layout_marginTop="24dp"
-                android:textSize="16sp"
-                android:textColor="#2E7D32" />
+                android:layout_marginTop="16dp"
+                android:textSize="14sp"
+                android:textColor="#374151" />
 
             <EditText
                 android:id="@+id/input_Amount_Category"
@@ -71,12 +112,13 @@
                 android:layout_height="56dp"
                 android:layout_marginTop="8dp"
                 android:hint="R 0.00"
+                android:textColorHint="#808080"
+                android:textColor="@color/black"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:padding="12dp"
                 android:background="#F3F4F6"
-                android:inputType="numberDecimal"
-                android:textColor="@color/black"/>
+                android:inputType="numberDecimal" />
 
             <View
                 android:layout_width="match_parent"
@@ -108,6 +150,9 @@
                 android:onClick="viewCategories"
                 android:layout_marginBottom="16dp"/>
 
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
@@ -115,51 +160,117 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/navBar"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="74dp"
         android:layout_alignParentBottom="true"
         android:layout_marginHorizontal="16dp"
         android:layout_marginBottom="16dp"
         app:cardBackgroundColor="#FFFFFF"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="12dp">
+        app:cardCornerRadius="24dp"
+        app:cardElevation="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
 
-            <ImageView
+            <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="32dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:src="@drawable/ic_home"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
                 android:onClick="openHome"
-                app:tint="#2E7D32" />
+                android:orientation="vertical">
 
-            <ImageView
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_home"
+                    app:tint="#2E7D32" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Home"
+                    android:textColor="#2E7D32"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="32dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:src="@drawable/ic_history"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
                 android:onClick="openHistory"
-                app:tint="#777777" />
+                android:orientation="vertical">
 
-            <ImageView
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_history"
+                    app:tint="#777777" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="History"
+                    android:textColor="#777777"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="32dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:src="@drawable/ic_stats"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
                 android:onClick="openStats"
-                app:tint="#777777" />
+                android:orientation="vertical">
 
-            <ImageView
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_stats"
+                    app:tint="#777777" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Stats"
+                    android:textColor="#777777"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="32dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:src="@drawable/ic_profile"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
                 android:onClick="openProfile"
-                app:tint="#777777" />
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_profile"
+                    app:tint="#777777" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Profile"
+                    android:textColor="#777777"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

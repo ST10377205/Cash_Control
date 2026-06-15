@@ -2,99 +2,153 @@ package com.example.cash_control
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.util.Patterns
 import android.view.View
 import android.widget.*
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
-import kotlinx.coroutines.CoroutineScope
+import androidx.lifecycle.lifecycleScope
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
- * SignUp Activity handles the registration of new users.
- * It validates user input, saves user data to the local Room database,
- * and initializes user-specific preferences.
+ * SignUp Activity handles the registration of new users with Firebase Auth and Firestore.
  */
 class SignUp : AppCompatActivity() {
 
+    private val TAG = "CASH_CONTROL_AUTH"
+    private lateinit var auth: FirebaseAuth
+    private lateinit var db: FirebaseFirestore
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Enable edge-to-edge layout for a modern immersive UI
         enableEdgeToEdge()
         setContentView(R.layout.activity_sign_up)
+        
+        auth = FirebaseAuth.getInstance()
+        db = FirebaseFirestore.getInstance()
 
-        // Find the "Log In" text view and set a click listener to navigate back to the Login page
+        Log.i(TAG, "SignUp Activity initialized with Firebase")
+
         val loginPage = findViewById<TextView>(R.id.log_in_TextView)
         loginPage.setOnClickListener {
+            Log.d(TAG, "Navigating to Login Page from SignUp")
             startActivity(Intent(this@SignUp, Login_page::class.java))
         }
     }
 
     /**
-     * Called when the "Sign Up" button is clicked.
-     * Performs validation and saves the user data.
+     * Triggered by sign up button. Performs multi-step validation and Firebase registration.
      */
     fun signUpBtn(@Suppress("UNUSED_PARAMETER") view: View) {
-        // 1. Get user input from the form fields
-        val name = findViewById<EditText>(R.id.name_input).text.toString().trim()
-        val email = findViewById<EditText>(R.id.name_email).text.toString().trim()
-        val password = findViewById<EditText>(R.id.creat_password_input).text.toString().trim()
-        val confirmPassword = findViewById<EditText>(R.id.confirm_password_input).text.toString().trim()
+        val nameEdit = findViewById<EditText>(R.id.name_input)
+        val emailEdit = findViewById<EditText>(R.id.name_email)
+        val passwordEdit = findViewById<EditText>(R.id.creat_password_input)
+        val confirmPasswordEdit = findViewById<EditText>(R.id.confirm_password_input)
+        
+        val name = nameEdit.text.toString().trim()
+        val email = emailEdit.text.toString().trim()
+        val password = passwordEdit.text.toString().trim()
+        val confirmPassword = confirmPasswordEdit.text.toString().trim()
         val radioGroup = findViewById<RadioGroup>(R.id.radioGroupGender)
 
-        // 2. Validate inputs: ensure all fields are filled
-        if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
-            Toast.makeText(this, "Fill all fields", Toast.LENGTH_SHORT).show()
+        // Reset errors
+        nameEdit.error = null
+        emailEdit.error = null
+        passwordEdit.error = null
+        confirmPasswordEdit.error = null
+
+        // 1. Validate Name
+        if (name.isEmpty()) {
+            nameEdit.error = "Name is required"
+            nameEdit.requestFocus()
+            return
+        }
+        if (!name.matches(Regex("^[a-zA-Z\\s]+$"))) {
+            nameEdit.error = "Full Name must contain only letters"
+            nameEdit.requestFocus()
             return
         }
 
-        // 3. Validate passwords: ensure they match
+        // 2. Validate Email
+        if (email.isEmpty()) {
+            emailEdit.error = "Email is required"
+            emailEdit.requestFocus()
+            return
+        }
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches() || !email.lowercase().endsWith("@gmail.com")) {
+            emailEdit.error = "Please enter a valid @gmail.com address"
+            emailEdit.requestFocus()
+            return
+        }
+        
+        // 3. Validate Password
+        if (password.isEmpty()) {
+            passwordEdit.error = "Password is required"
+            passwordEdit.requestFocus()
+            return
+        }
+        if (password.length < 6) {
+            passwordEdit.error = "Password must be at least 6 characters"
+            passwordEdit.requestFocus()
+            return
+        }
+
+        // 4. Check Password Confirmation
         if (password != confirmPassword) {
-            Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show()
+            confirmPasswordEdit.error = "Passwords do not match"
+            confirmPasswordEdit.requestFocus()
             return
         }
 
-        // 4. Validate gender selection
+        // 5. Validate gender selection
         val selectedId = radioGroup.checkedRadioButtonId
         if (selectedId == -1) {
-            Toast.makeText(this, "Select gender", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Please select your gender", Toast.LENGTH_SHORT).show()
             return
         }
 
-        // 5. Get the selected gender string
         val gender = findViewById<RadioButton>(selectedId).text.toString().lowercase()
+        val normalizedEmail = email.lowercase()
 
-        // 6. Prepare the local Room Database instance and the User entity
-        val db = DatabaseProvider.getDatabase(this)
-        val newUser = User(name = name, email = email, password = password, gender = gender)
-
-        // 7. Perform Database operation on a background thread (IO) to avoid blocking the UI
-        CoroutineScope(Dispatchers.IO).launch {
-            // Save user to Room Database
-            db.userDao().insertUser(newUser)
-
-            // 8. Switch back to the main thread to update UI and navigate
-            withContext(Dispatchers.Main) {
-                // Save the current user's email globally to maintain session state
-                getSharedPreferences("AppPrefs", MODE_PRIVATE).edit {
-                    putString("current_user_email", email)
-                }
-
-                // Initialize the unique user storage for their personal data (budget, expenses, etc.)
-                getSharedPreferences("UserData_" + email, MODE_PRIVATE).edit {
-                    putString("name", name)
-                    putString("email", email)
-                    putString("password", password)
-                    putString("gender", gender)
-                }
-
-                Toast.makeText(this@SignUp, "Signup successful", Toast.LENGTH_SHORT).show()
+        // Firebase Sign Up
+        lifecycleScope.launch {
+            try {
+                val result = auth.createUserWithEmailAndPassword(normalizedEmail, password).await()
+                val user = result.user
                 
-                // Navigate to the Login page and close this registration screen
-                startActivity(Intent(this@SignUp, Login_page::class.java))
-                finish()
+                if (user != null) {
+                    // Save additional data to Firestore
+                    val userData = hashMapOf(
+                        "name" to name,
+                        "email" to normalizedEmail,
+                        "password" to password, // Added for the manual reset/login fallback
+                        "gender" to gender,
+                        "uid" to user.uid,
+                        "member_since" to SimpleDateFormat("MMM yyyy", Locale.getDefault()).format(Date())
+                    )
+
+                    db.collection("users").document(user.uid).set(userData).await()
+                    
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(this@SignUp, "Account created successfully!", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this@SignUp, Login_page::class.java))
+                        finish()
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Log.e(TAG, "Firebase SignUp Error: ${e.message}")
+                    Toast.makeText(this@SignUp, "Registration failed: ${e.message}", Toast.LENGTH_LONG).show()
+                }
             }
         }
     }
