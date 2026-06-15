@@ -1,75 +1,296 @@
-# Cash Control App – Feature Explanation
+# Final POE – Part 3 (Final App Development)
 
-## 1. User Authentication
-The application ensures that financial data is kept private and secure through a dedicated login and registration system.
+## Project Information
 
-**How it works:**
-- Users can create an account with a name, email, and password.
-- Secure login using a local Room database to verify credentials.
+**Project Name:** Cash Control
+**Course:** OPSC6311
 
-## 2. Add Monthly Goals (Budget)
-This feature allows users to define their financial limits by setting specific spending goals.
+### Group Members
 
-**How it works:**
-- Users set both a **Minimum** and **Maximum** monthly goal.
-- Saving a budget adds to the user's total income pool.
-- Triggers a "Budget Planner" achievement.
+* **Kamohelo Simata** – ST10377205
+* **Azwidali Manyaga** – ST10440560
+* **Lusani Ramulifho** – ST10439607
+* **Neo Entle Mokoena** – ST10441962
 
-**Purpose:**
-- Helps users plan their financial future.
-- Acts as a cumulative financial limit.
+---
 
-## 3. Create Categories
-Users can organize their spending by creating specific categories.
+## Project Links
 
-**How it works:**
-- Users name a category and allocate a specific portion of their budget to it.
-- Categories are stored locally and available for selection when adding expenses.
+* **GitHub Repository:**
+  https://github.com/ST10377205/Cash_Control/tree/master
 
-## 4. Detailed Expense Logging
-Record every transaction with high precision to maintain an accurate financial history.
+* **YouTube Demo Video:**
+  *[Insert YouTube Link Here]*
 
-**How it works:**
-- Users enter the expense amount and select a category.
-- **Mandatory Details**: Users specify the **Date**, **Start Time**, **End Time**, and a **Description**.
-- **Photo Attachment**: Users can optionally take a photo of the receipt using the camera.
+---
 
-## 5. Strict Budget Control
-The application helps prevent overspending by monitoring category balances.
+# Overview
 
-**How it works:**
-- Before an expense is added, the app checks the category's remaining balance.
-- If the expense exceeds the balance, the transaction is blocked with an "Insufficient funds" warning.
+**Cash Control** is a professional Android application designed to help users manage their finances efficiently and accurately. This version represents the **Final POE (Part 3)** and features an **offline-first architecture**, **real-time cloud synchronization using Firebase Firestore**, **advanced visual analytics**, and **gamified achievements** to improve user engagement.
 
-## 6. Filtered Expense History
-View and review all past transactions within specific timeframes.
+The application simplifies financial management by helping users track income and expenses, manage budgets, visualize spending habits, and achieve financial goals.
 
-**How it works:**
-- Use interactive **Date Pickers** to select a start and end date.
-- The list automatically refreshes to show all transactions, descriptions, and captured receipt photos for that period.
+## Target Audience
 
-## 7. Visual Statistics (Category Graphs)
-Analyze spending patterns through visual data representation.
+Cash Control is primarily designed for **students and young professionals** who want to improve their spending habits and gain better control of their finances. The application provides a centralized platform for tracking transactions, managing category-based budgets, and staying motivated through rewards and progress tracking.
 
-**How it works:**
-- The app calculates the total spent per category within a selected period.
-- Displays a **Horizontal Bar Graph** for each category, scaling bars relative to the highest spending area.
+---
 
-## 8. Achievement & Streak System
-Gamified rewards to encourage consistent financial tracking.
+# Design Considerations
 
-**How it works:**
-- **Saving Streaks**: Tracks how many consecutive days you've logged expenses.
-- **Trophy Collection**: Earn **Milestone Trophies** for every 3 days of tracking and **Budget Planner** trophies for goal setting.
-- **Badges**: Unlock badges like "3-Day Saver", "Weekly Warrior", and "Saving Legend".
+## 1. User Interface (UI)
 
-## 9. Data Storage
-Ensures that all financial data is saved locally and remains persistent.
+The application follows a **clean and modern Material Design 3 interface** to provide an intuitive and user-friendly experience. High-contrast colors are used strategically for financial indicators:
 
-**How it works:**
-- Uses **Room Database (SQLite)** for permanent storage of users and transactions.
-- Uses **SharedPreferences** for user-specific settings.
+* **Green** → Income and safe financial zones
+* **Red** → Overspending warnings and financial risk areas
 
-**Purpose:**
-- Ensures data is not lost when the app is closed.
-- Operates entirely offline for maximum privacy.
+This visual approach allows users to quickly understand their financial status.
+
+## 2. Offline-First Architecture
+
+To ensure reliability and uninterrupted access, the application follows an **Offline-First Repository Pattern**.
+
+* Data is initially stored locally using **Room Database (SQLite)**.
+* Users can continue using the app without an internet connection.
+* Once internet connectivity becomes available, data is synchronized automatically with **Firebase Firestore**.
+
+This architecture guarantees data accessibility and reliability.
+
+## 3. Gamification
+
+The gamification system was developed to encourage consistent financial tracking through **positive reinforcement**.
+
+Users are rewarded for maintaining healthy financial habits through:
+
+* Daily logging streaks
+* Achievement badges
+* Trophy rewards
+* Budget completion milestones
+
+---
+
+# Custom Features (Requirement)
+
+In addition to the required project functionality, the following unique features were designed and implemented:
+
+## 1. Savings Goals (Set Goal)
+
+This feature allows users to create and track **long-term financial goals**.
+
+Users can:
+
+* Set target savings amounts
+* Monitor progress toward goals
+* Stay motivated to save for objectives such as:
+
+    * Holidays
+    * Emergency funds
+    * Personal purchases
+
+This feature encourages responsible saving habits and long-term financial planning.
+
+## 2. Financial Knowledge Hub
+
+The **Financial Knowledge Hub** acts as an educational section within the app.
+
+It provides users with:
+
+* Financial management tips
+* Budgeting strategies
+* Investment basics
+* Money-saving advice
+
+This transforms the app from a simple finance tracker into a tool that promotes **financial literacy and long-term financial growth**.
+
+---
+
+# Main Features
+
+## 1. Secure Authentication and Cloud Synchronization
+
+### Firebase Authentication
+
+* Secure account registration and login system.
+* Protected user authentication using Firebase.
+
+### Cloud Backup and Sync
+
+* User profiles, transactions, and financial data are securely stored in **Firebase Firestore**.
+* Supports **cross-device synchronization**.
+
+### Password Recovery
+
+* Built-in **Forgot Password** functionality.
+* Allows users to recover accounts through registered email verification.
+
+---
+
+## 2. Intelligent Dashboard and Gamification
+
+### Lifetime Balance
+
+The application calculates a **digital wallet balance** based on:
+
+**Total Income – Total Expenses**
+
+This balance remains persistent throughout app usage.
+
+### Visual Goal Tracking
+
+Users receive **color-coded financial feedback** based on spending performance:
+
+* **Safe** → Spending within range
+* **On Track** → Financial goals are progressing well
+* **Overspending** → Spending exceeds limits
+
+### Milestone Rewards
+
+The dashboard includes **progress milestones** that unlock at:
+
+* 25% completion
+* 50% completion
+* 75% completion
+* 100% completion
+
+### Streak System
+
+A dedicated **Streak Page** rewards users for daily activity with:
+
+* Badges
+* Achievements
+* Trophy rewards
+
+This encourages consistency and better financial habits.
+
+---
+
+## 3. Precision Transaction Management
+
+### Digital Receipts
+
+Users can upload receipt images through:
+
+* Camera capture
+* Gallery upload
+
+Receipts are stored locally for convenient future reference.
+
+### Detailed Transactions
+
+Users can record:
+
+* Expense or income amount
+* Date and time
+* Category
+* Description
+
+All transactions are automatically synchronized to the cloud.
+
+---
+
+## 4. Visual Insights and Analytics (Stats)
+
+### Dynamic Charts
+
+The application includes **Pie Charts** and **Bar Charts** powered by **MPAndroidChart** to visualize spending trends and category distributions.
+
+### Goal Overlays
+
+Bar charts include **minimum and maximum budget limit lines**, allowing users to compare spending against targets over selected time periods.
+
+---
+
+# GitHub and Version Control
+
+## Version Control Strategy
+
+### Regular Commits
+
+The project follows a structured commit history to document the iterative development process, including:
+
+* Room database integration
+* Firebase implementation
+* Dashboard improvements
+* Gamification features
+
+### README Documentation
+
+This README serves as the project's **technical overview and user guide**, explaining the application's features, architecture, and implementation details.
+
+---
+
+## GitHub Actions (CI/CD)
+
+The repository is configured with **GitHub Actions (`android.yml`)** to automate application builds and testing after every push.
+
+This ensures:
+
+1. The application builds successfully in a clean environment.
+2. Core application logic, such as budget calculations and goal tracking, functions correctly through automated testing.
+
+---
+
+# How to Use the App
+
+### Step 1: Sign Up
+
+Create an account to securely store and synchronize your financial data.
+
+### Step 2: Set Financial Goals
+
+Use the **Set Budget** feature to define spending limits and financial targets.
+
+### Step 3: Add Transactions
+
+Select **Add Expense** to record:
+
+* Expenses
+* Income
+* Categories
+* Descriptions
+
+Users can also upload receipt images for record-keeping.
+
+### Step 4: Monitor Statistics
+
+Navigate to the **Stats** section to:
+
+* View spending breakdowns
+* Analyze financial trends
+* Compare spending against budget limits
+
+### Step 5: Maintain a Streak
+
+Log financial activities daily to unlock achievements such as the **Saving Legend Badge**.
+
+---
+
+# Technical Stack
+
+| Technology             | Purpose                 |
+| ---------------------- | ----------------------- |
+| **Kotlin**             | Application development |
+| **Room (SQLite)**      | Local offline database  |
+| **Firebase Firestore** | Cloud synchronization   |
+| **Material Design 3**  | User interface design   |
+| **MPAndroidChart**     | Data visualization      |
+| **Kotlin Coroutines**  | Background processing   |
+
+---
+
+# Documentation
+
+The following documents are included as part of this project:
+
+* **Research Document** *(Insert File Link)*
+* **Design Document** *(Insert File Link)*
+
+---
+
+# Conclusion
+
+**Cash Control** is designed to make financial management simple, interactive, and rewarding. Through secure cloud storage, intelligent analytics, budget tracking, and gamified motivation, the application empowers users to develop better financial habits and maintain long-term financial stability.
+
+**Cash Control – Master your money, one transaction at a time.**
+
